@@ -40,6 +40,9 @@ Task:
 - In the table above, the **Products column** contains multiple values, which violates **1NF**.
 - **Write an SQL query** to transform this table into **1NF**, ensuring that each row represents a single product for an order
 ```sql
+CREATE DATABASE store;
+
+USE store;
 CREATE TABLE orders(
 order_id INT PRIMARY KEY AUTO_INCREMENT,
 first_name VARCHAR(30),
@@ -83,6 +86,10 @@ SELECT * FROM products;
 
 - Write an SQL query to transform this table into **2NF** by removing partial dependencies. Ensure that each non-key column fully depends on the entire primary key.
 ```sql
+USE store;
+DROP TABLE products;
+DROP TABLE orders;
+
 CREATE TABLE orders(
 order_id INT PRIMARY KEY AUTO_INCREMENT,
 first_name VARCHAR(30),
@@ -102,12 +109,11 @@ order_id INT,
 FOREIGN KEY (order_id) REFERENCES orders(order_id));
 
 INSERT INTO products(product_name, order_id, quantity) 
-VALUES ("Laptop", 101), ("Mouse", 101),
-("Tablet", 102), ("Keyboard", 102), ("Mouse", 102),
-("Phone", 103);
+VALUES ("Laptop", 101, 2), ("Mouse", 101, 1),
+("Tablet", 102, 3), ("Keyboard", 102, 1), ("Mouse", 102, 2),
+("Phone", 103, 1);
 
 SELECT * FROM products;
-DROP TABLE products;
 ```
 ---
 Good luck 🚀
