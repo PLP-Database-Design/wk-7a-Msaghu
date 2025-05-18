@@ -39,7 +39,32 @@ Task:
 
 - In the table above, the **Products column** contains multiple values, which violates **1NF**.
 - **Write an SQL query** to transform this table into **1NF**, ensuring that each row represents a single product for an order
+```sql
+CREATE TABLE orders(
+order_id INT PRIMARY KEY AUTO_INCREMENT,
+first_name VARCHAR(30),
+second_name VARCHAR(30));
 
+INSERT INTO orders(order_id, first_name, second_name) 
+VALUES (101, "John", "Doe"), (102 , "Jane", "Smith"),
+(103, "Emily", "Clark");
+
+SELECT * FROM orders;
+
+CREATE TABLE products(
+product_id INT PRIMARY KEY AUTO_INCREMENT,
+product_name VARCHAR(30),
+order_id INT,
+FOREIGN KEY (order_id) REFERENCES orders(order_id));
+
+INSERT INTO products(product_name, order_id) 
+VALUES ("Laptop", 101), ("Mouse", 101),
+("Tablet", 102), ("Keyboard", 102), ("Mouse", 102),
+("Phone", 103);
+
+SELECT * FROM products;
+DROP TABLE products;
+```
 --- 
 
 ### Question 2 Achieving 2NF (Second Normal Form) 🧩
