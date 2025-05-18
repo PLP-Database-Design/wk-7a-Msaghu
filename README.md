@@ -63,7 +63,6 @@ VALUES ("Laptop", 101), ("Mouse", 101),
 ("Phone", 103);
 
 SELECT * FROM products;
-DROP TABLE products;
 ```
 --- 
 
@@ -83,6 +82,32 @@ DROP TABLE products;
 - In the table above, the **CustomerName** column depends on **OrderID** (a partial dependency), which violates **2NF**. 
 
 - Write an SQL query to transform this table into **2NF** by removing partial dependencies. Ensure that each non-key column fully depends on the entire primary key.
+```sql
+CREATE TABLE orders(
+order_id INT PRIMARY KEY AUTO_INCREMENT,
+first_name VARCHAR(30),
+second_name VARCHAR(30));
 
+INSERT INTO orders(order_id, first_name, second_name) 
+VALUES (101, "John", "Doe"), (102 , "Jane", "Smith"),
+(103, "Emily", "Clark");
+
+SELECT * FROM orders;
+
+CREATE TABLE products(
+product_id INT PRIMARY KEY AUTO_INCREMENT,
+product_name VARCHAR(30),
+quantity INT,
+order_id INT,
+FOREIGN KEY (order_id) REFERENCES orders(order_id));
+
+INSERT INTO products(product_name, order_id, quantity) 
+VALUES ("Laptop", 101), ("Mouse", 101),
+("Tablet", 102), ("Keyboard", 102), ("Mouse", 102),
+("Phone", 103);
+
+SELECT * FROM products;
+DROP TABLE products;
+```
 ---
 Good luck 🚀
